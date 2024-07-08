@@ -17,11 +17,14 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('author');
-            $table->string('genre');
+            $table->unsignedBigInteger('genre_id');
             $table->integer('published_year');
             $table->string('isbn')->unique();
             $table->integer('copies_available');
             $table->timestamps();
+
+            // Foreign key constraint
+            $table->foreign('genre_id')->references('id')->on('genres')->onDelete('cascade');
         });
     }
 

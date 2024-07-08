@@ -7,6 +7,7 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\LoanController;
 use App\Http\Controllers\GenreController;
+use App\Http\Controllers\ReservationsController;
 
 // Authentification
 Route::post('/login', [AuthController::class, 'login']);
@@ -45,6 +46,25 @@ Route::middleware('auth:sanctum')->group(function () {
    
 
     Route::apiResource('loans', LoanController::class);
+    Route::put('/loans/{id}', [LoanController::class, 'update']);
   
 
 });
+
+
+
+
+
+Route::middleware('auth:sanctum')->group(function () {
+   
+
+    Route::get('/reservations', [ReservationsController::class, 'index']);
+    Route::get('/reservations/{id}', [ReservationsController::class, 'show']);
+    Route::post('/reservations', [ReservationsController::class, 'store']);
+    Route::put('/reservations/{id}', [ReservationsController::class, 'update']);
+    Route::delete('/reservations/{id}', [ReservationsController::class, 'destroy']);
+  
+
+});
+
+

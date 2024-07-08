@@ -16,7 +16,7 @@ class BookController extends Controller
             $search = $request->search;
             $query->where('title', 'like', "%$search%")
                   ->orWhere('author', 'like', "%$search%")
-                  ->orWhere('genre', 'like', "%$search%");
+                  ->orWhere('genre_id', 'like', "%$search%");
         }
 
         // Paginer les résultats
@@ -33,7 +33,7 @@ class BookController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'author' => 'required|string|max:255',
-            'genre' => 'required|string|max:255',
+            'genre_id' => 'required|exists:genres,id', // Vérifie que l'id du genre existe dans la table `genres`
             'published_year' => 'required|integer',
             'isbn' => 'required|string|max:255|unique:books',
             'copies_available' => 'required|integer',
@@ -61,7 +61,7 @@ class BookController extends Controller
         $request->validate([
             'title' => 'string|max:255',
             'author' => 'string|max:255',
-            'genre' => 'string|max:255',
+            'genre_id' => 'exists:genres,id', // Vérifie que l'id du genre existe dans la table `genres`
             'published_year' => 'integer',
             'isbn' => 'string|max:255|unique:books,isbn,'.$id,
             'copies_available' => 'integer',

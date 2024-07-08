@@ -22,13 +22,12 @@ class AuthController extends Controller
         }
 
         $user = Auth::user();
-        $token = $user->createToken('auth_token')->plainTextToken;
+        // $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
-            'success' => true,
-            'token' => $token,
-            'token_type' => 'Bearer',
-            'status' => 200,
+           
+            // 'token' => $token,
+            'message' => 'login success',
         ]);
     }
 
