@@ -11,13 +11,15 @@ class CreateLoansTable extends Migration
             $table->id();
             $table->unsignedBigInteger('book_id');
             $table->unsignedBigInteger('member_id');
-            $table->date('issued_date');
-            $table->date('return_date')->nullable();
-            $table->boolean('is_returned')->default(false);
+            $table->date('issued_date')->nullable();
+            $table->date('due_date')->nullable();
+            $table->date('returned_date')->nullable();
+            $table->decimal('fine_amount', 10, 2)->nullable();
             $table->timestamps();
 
-            $table->foreign('book_id')->references('id')->on('books');
-            $table->foreign('member_id')->references('id')->on('members');
+            // Foreign keys
+            $table->foreign('book_id')->references('id')->on('books')->onDelete('cascade');
+            $table->foreign('member_id')->references('id')->on('members')->onDelete('cascade');
         });
     }
 
